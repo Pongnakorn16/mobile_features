@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "76185584183",
+    "project_id": "flutter-moblie-features",
+    "storage_bucket": "flutter-moblie-features.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76185584183:android:6a51f1227726e4f07eb5b2",
+        "android_client_info": {
+          "package_name": "com.example.mobile_features"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6Mnc2rbHd_brMyNoKUuXMPaF0FP1cdh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
