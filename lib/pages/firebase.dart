@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:mobile_features/shared/appdata.dart';
+import 'package:provider/provider.dart';
 
 class FirebasePage extends StatefulWidget {
   const FirebasePage({super.key});
@@ -18,7 +20,6 @@ class _FirebasePageState extends State<FirebasePage> {
   TextEditingController nameCtl = TextEditingController();
   TextEditingController messageCtl = TextEditingController();
   var db = FirebaseFirestore.instance;
-  StreamSubscription? listener; //listener can be null
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +86,14 @@ class _FirebasePageState extends State<FirebasePage> {
   }
 
   void startRealtimeGet() {
+    if (context.read<Appdata>().listener != null) {
+      context.read<Appdata>().listener!.cancel();
+      context.read<Appdata>().listener = null;
+      log("listener stopped");
+    }
+
     final docRef = db.collection("inbox").doc(docCtl.text);
-    listener = docRef.snapshots().listen(
+    context.read<Appdata>().listener = docRef.snapshots().listen(
       (event) {
         var data = event.data();
         Get.snackbar(data!['name'].toString(), data['message'].toString());
@@ -97,8 +104,10 @@ class _FirebasePageState extends State<FirebasePage> {
   }
 
   void stopRealTimeGet() {
-    if (listener != null) {
-      listener!.cancel();
+    if (context.read<Appdata>().listener != null) {
+      context.read<Appdata>().listener!.cancel();
+      context.read<Appdata>().listener = null;
+      log("listener stopped");
     }
   }
 }

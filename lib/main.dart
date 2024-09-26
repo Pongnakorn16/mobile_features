@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:mobile_features/firebase_options.dart';
 import 'package:mobile_features/pages/home.dart';
+import 'package:mobile_features/shared/appdata.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   //Connect to Firebase
@@ -14,7 +16,14 @@ void main() async {
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: true,
   );
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => Appdata(),
+      )
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
